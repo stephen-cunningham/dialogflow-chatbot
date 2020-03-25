@@ -1,3 +1,8 @@
 node_modules
+node_modules/@types
+node_modules/@body-parser
+node_modules/dialogflow
+node_modules/express
+node_modules/nodemon
 .idea
 config/develop.js
