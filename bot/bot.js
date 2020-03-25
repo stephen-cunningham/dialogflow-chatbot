@@ -13,7 +13,7 @@ const structJson = require('./structJson');
 
 /*
 initialising the session client
-passing in credentials in this fashion ensures that we don't have to set the Google application credentials in your local machine during development
+passing in the credentials in this fashion ensures that we don't have to set the Google application credentials in your local machine during development
 it also enhances the safety of the configuration in the server since all configuration is in environment variables, rather than the files
  */
 const sessionClient = new dialogFlow.SessionsClient({projectID, credentials});
