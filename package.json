@@ -8,7 +8,6 @@
     "npm": "6.13.4"
   },
   "scripts": {
-    "preinstall": "node gcpSetup.js",
     "start": "node index.js",
     "backend": "nodemon index.js"
   },
