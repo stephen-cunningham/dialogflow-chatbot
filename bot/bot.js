@@ -2,7 +2,7 @@
 //https://github.com/googleapis/nodejs-dialogflow
 const dialogFlow = require('dialogflow');
 
-const config = require('../config/keys');
+const config = require('../config/develop');//CHANGED THIS FROM KEYS FOR TESTING
 const projectID = config.googleProjectID;
 const credentials = {
     client_email: config.googleClientEmail,
