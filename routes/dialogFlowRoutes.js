@@ -4,18 +4,13 @@ const bot = require('../bot/bot');
 module.exports = app => {
     //this is the handler for the GET request on the home page
     app.get('/', (req, res) => {
-        res.send({'testingggggg': 'GET request'});//sends JSON response
+        res.send({'testing': 'GET request'});//sends JSON response
     });
 
     //this is the handler for POST requests for text queries
     app.post('/api/df_text_query', async(req, res) => {
-        try {
-            let responses = await bot.textQuery(req.body.text, req.body.parameters);//MAYBE TAKE OUT .text
-            res.send(responses[0].queryResult);
-        }catch(err){
-            throw new Error('Test');
-        }
-
+        let responses = await bot.textQuery(req.body.text, req.body.parameters);//MAYBE TAKE OUT .text
+        res.send(responses[0].queryResult);
     });
 
     app.post('/api/df_event_query', async(req, res) => {//this is the handler for POST requests for event queries
