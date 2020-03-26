@@ -8,7 +8,7 @@
 
 ../config
     /keys.js
-        this ensures that the right keys and instructs the application to load either develop.js or production.js as the configuration file
+        this ensures that the right keys are used and instructs the application to load either develop.js or production.js as the configuration file
     /develop.js
         this contains the keys for local development
     /production.js

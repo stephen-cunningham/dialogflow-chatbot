@@ -4,7 +4,7 @@ const bot = require('../bot/bot');
 module.exports = app => {
     //this is the handler for the GET request on the home page
     app.get('/', (req, res) => {
-        res.send({'testing': 'GET request'});//sends JSON response
+        res.send({'testingggggg': 'GET request'});//sends JSON response
     });
 
     //this is the handler for POST requests for text queries
