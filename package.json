@@ -4,7 +4,7 @@
   "description": "Chatbot application for CT544 project",
   "main": "index.js",
   "engines": {
-    "node": "v12.16.1",
+    "node": "12.16.1",
     "npm": "6.13.4"
   },
   "scripts": {

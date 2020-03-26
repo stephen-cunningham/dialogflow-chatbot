@@ -9,8 +9,13 @@ module.exports = app => {
 
     //this is the handler for POST requests for text queries
     app.post('/api/df_text_query', async(req, res) => {
-        let responses = await bot.textQuery(req.body.text, req.body.parameters);//MAYBE TAKE OUT .text
-        res.send(responses[0].queryResult);
+        try {
+            let responses = await bot.textQuery(req.body.text, req.body.parameters);//MAYBE TAKE OUT .text
+            res.send(responses[0].queryResult);
+        }catch(err){
+            throw new Error('Test');
+        }
+
     });
 
     app.post('/api/df_event_query', async(req, res) => {//this is the handler for POST requests for event queries
