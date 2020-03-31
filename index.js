@@ -1,8 +1,9 @@
 const express = require('express');//this gets the express module
-const bodyParse = require('body-parser');//importing body parser helper, which is a body parsing middleware. This helps to read data in requests.
+const bodyParser = require('body-parser');//importing body parser helper, which is a body parsing middleware. This helps to read data in requests.
 const app = express();//this creates the app
 
-app.use(bodyParse.json());
+// require('dotenv').config();
+app.use(bodyParser.json());
 
 //this ensures the dialogFlowRoutes.js file is required by index.js. The route handling for DialogFlow is done in that file
 //passing app means app will be available in the dialogFlowRoutes.js file
