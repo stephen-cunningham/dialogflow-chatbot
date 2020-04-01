@@ -34,9 +34,7 @@ module.exports = {
 
     textQuery: async function(text, parameters = {}){//parameters is an empty object by default
         try{// console.log(config.googleProjectID + " || " + config.dialogFlowSessionID + config.googlePrivateKey + config.googleClientEmail + config.dialogFlowSessionLanguageCode);
-            console.log('a');
             let self = module.exports;//accessing another module exports method
-            console.log('b');
             const request = {
                 session: sessionPath,
                 queryInput: {
@@ -52,40 +50,40 @@ module.exports = {
                     }
                 }
             };
-            console.log('c');
             //using asynchronous promises
             //https://www.youtube.com/watch?v=r_X-PLoz1lE
             //https://javascript.info/async-await
             let responses = await sessionClient.detectIntent(request);//await returns a promise
-            console.log('d');
             responses = await self.handleAction(responses);
-            console.log('e');
             return responses;
-            console.log('f');
         }catch (e){
             console.error(e);
         };
     },
 
     eventQuery: async function(event, parameters){//parameters is an empty object by default
-        let self = module.exports;//accessing another module exports method
-        const request = {
-            session: sessionPath,
-            queryInput: {
-                event: {
-                    name: event,// The query to send to the dialogflow agent
-                    parameters: structJson.jsonToStructProto(parameters),//here, a JSON object (paramenters) is passed to the method and converted to struct
-                    languageCode: langaugeCode,// The language used by the client (en-IE)
+        try {
+            let self = module.exports;//accessing another module exports method
+            const request = {
+                session: sessionPath,
+                queryInput: {
+                    event: {
+                        name: event,// The query to send to the dialogflow agent
+                        parameters: structJson.jsonToStructProto(parameters),//here, a JSON object (paramenters) is passed to the method and converted to struct
+                        languageCode: languageCode,// The language used by the client (en-IE)
+                    },
                 },
-            },
-            //no need for query parameters since parameters are passed in the event object
+                //no need for query parameters since parameters are passed in the event object
+            };
+            //using asynchronous promises
+            //https://www.youtube.com/watch?v=r_X-PLoz1lE
+            //https://javascript.info/async-await
+            let responses = await sessionClient.detectIntent(request);//await returns a promise
+            responses = await self.handleAction(responses);
+            return responses;
+        }catch(e){
+            console.error(e);
         };
-        //using asynchronous promises
-        //https://www.youtube.com/watch?v=r_X-PLoz1lE
-        //https://javascript.info/async-await
-        let responses = await sessionClient.detectIntent(request);//await returns a promise
-        responses = await self.handleAction(responses);
-        return responses;
     },
 
     handleAction: function(responses){
