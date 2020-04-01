@@ -32,7 +32,7 @@ const sessionPath = sessionClient.sessionPath(projectID, sessionID);//create the
 module.exports = {
 
     textQuery: async function(text, parameters = {}){//parameters is an empty object by default
-        // console.log(config.googleProjectID + " || " + config.dialogFlowSessionID + config.googlePrivateKey + config.googleClientEmail + config.dialogFlowSessionLanguageCode);
+        try{// console.log(config.googleProjectID + " || " + config.dialogFlowSessionID + config.googlePrivateKey + config.googleClientEmail + config.dialogFlowSessionLanguageCode);
         console.log('a');
         let self = module.exports;//accessing another module exports method
         console.log('b');
@@ -50,6 +50,9 @@ module.exports = {
                     data: parameters//data becomes an object based on the parameters passed to the function by the client
                 }
             }
+        }
+        }catch (e){
+            console.error(e);
         };
         console.log('c');
         //using asynchronous promises
