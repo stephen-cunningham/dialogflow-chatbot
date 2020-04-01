@@ -3,17 +3,18 @@
 const dialogFlow = require('dialogflow');
 const structJson = require('./structJson');
 
-const config = require('../config/keys');//CHANGED THIS FROM KEYS FOR TESTING
-const projectID = config.googleProjectID;
-console.log("projectID: " + projectID);
-const sessionID = config.dialogFlowSessionID;
-console.log("sessionID: " + sessionID);
-const clientEmail = config.googleClientEmail;
-console.log("clientEmail: " + clientEmail);
-const privateKey = config.googlePrivateKey;
-console.log("privateKey: " + privateKey);
-const languageCode = config.dialogFlowSessionLanguageCode;
-console.log("languageCode: " + languageCode);
+// const config = require('../config/production');//CHANGED THIS FROM KEYS FOR TESTING
+// const projectID = config.googleProjectID;
+// const sessionID = config.dialogFlowSessionID;
+// const clientEmail = config.googleClientEmail;
+// const privateKey = config.googlePrivateKey;
+// const languageCode = config.dialogFlowSessionLanguageCode;
+const projectID = process.env.GOOGLE_PROJECT_ID;
+const sessionID = process.env.DIALOGFLOW_SESSION_ID;
+const clientEmail = process.env.GOOGLE_CLIENT_EMAIL;
+const privateKey = process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/gm, '\n');
+const languageCode = process.env.DIALOGFLOW_LANGUAGE_CODE;
+// console.log(privateKey);
 const credentials = {
     client_email: clientEmail,
     private_key: privateKey
