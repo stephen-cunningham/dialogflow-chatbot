@@ -14,6 +14,7 @@ const sessionID = process.env.DIALOGFLOW_SESSION_ID;
 const clientEmail = process.env.GOOGLE_CLIENT_EMAIL;
 const privateKey = process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/gm, '\n');
 const languageCode = process.env.DIALOGFLOW_LANGUAGE_CODE;
+console.log(languageCode);
 // console.log(privateKey);
 const credentials = {
     client_email: clientEmail,
