@@ -34,37 +34,37 @@ module.exports = {
 
     textQuery: async function(text, parameters = {}){//parameters is an empty object by default
         try{// console.log(config.googleProjectID + " || " + config.dialogFlowSessionID + config.googlePrivateKey + config.googleClientEmail + config.dialogFlowSessionLanguageCode);
-        console.log('a');
-        let self = module.exports;//accessing another module exports method
-        console.log('b');
-        const request = {
-            session: sessionPath,
-            queryInput: {
-                text: {
-                    text: text,// The query to send to the dialogflow agent
-                    languageCode: languageCode,// The language used by the client (en-IE)
+            console.log('a');
+            let self = module.exports;//accessing another module exports method
+            console.log('b');
+            const request = {
+                session: sessionPath,
+                queryInput: {
+                    text: {
+                        text: text,// The query to send to the dialogflow agent
+                        languageCode: languageCode,// The language used by the client (en-IE)
+                    },
                 },
-            },
-            //this sends parameters along with a text query
-            queryParams: {
-                payload: {
-                    data: parameters//data becomes an object based on the parameters passed to the function by the client
+                //this sends parameters along with a text query
+                queryParams: {
+                    payload: {
+                        data: parameters//data becomes an object based on the parameters passed to the function by the client
+                    }
                 }
-            }
-        }
+            };
+            console.log('c');
+            //using asynchronous promises
+            //https://www.youtube.com/watch?v=r_X-PLoz1lE
+            //https://javascript.info/async-await
+            let responses = await sessionClient.detectIntent(request);//await returns a promise
+            console.log('d');
+            responses = await self.handleAction(responses);
+            console.log('e');
+            return responses;
+            console.log('f');
         }catch (e){
             console.error(e);
         };
-        console.log('c');
-        //using asynchronous promises
-        //https://www.youtube.com/watch?v=r_X-PLoz1lE
-        //https://javascript.info/async-await
-        let responses = await sessionClient.detectIntent(request);//await returns a promise
-        console.log('d');
-        responses = await self.handleAction(responses);
-        console.log('e');
-        return responses;
-        console.log('f');
     },
 
     eventQuery: async function(event, parameters){//parameters is an empty object by default
