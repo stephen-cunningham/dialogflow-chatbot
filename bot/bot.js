@@ -3,13 +3,15 @@
 const dialogFlow = require('dialogflow');
 const structJson = require('./structJson');
 
+const config = require('../config/keys');
+
 //getting the config vars from Heroku
-const projectID = process.env.GOOGLE_PROJECT_ID;
-const sessionID = process.env.DIALOGFLOW_SESSION_ID;
-const clientEmail = process.env.GOOGLE_CLIENT_EMAIL;
+const projectID = config.googleProjectID;
+const sessionID = config.dialogFlowSessionID;
+const clientEmail = config.googleClientEmail;
 //idea for .replace(): https://github.com/auth0/node-jsonwebtoken/issues/642
-const privateKey = process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/gm, '\n');
-const languageCode = process.env.DIALOGFLOW_LANGUAGE_CODE;
+const privateKey = config.googlePrivateKey;
+const languageCode = config.dialogFlowSessionLanguageCode;
 
 const credentials = {
     client_email: clientEmail,
