@@ -3,14 +3,19 @@
 const dialogFlow = require('dialogflow');
 const structJson = require('./structJson');
 
-//getting the config vars from Heroku
+// const config = require('../config/production');//CHANGED THIS FROM KEYS FOR TESTING
+// const projectID = config.googleProjectID;
+// const sessionID = config.dialogFlowSessionID;
+// const clientEmail = config.googleClientEmail;
+// const privateKey = config.googlePrivateKey;
+// const languageCode = config.dialogFlowSessionLanguageCode;
 const projectID = process.env.GOOGLE_PROJECT_ID;
 const sessionID = process.env.DIALOGFLOW_SESSION_ID;
 const clientEmail = process.env.GOOGLE_CLIENT_EMAIL;
-//idea for .replace(): https://github.com/auth0/node-jsonwebtoken/issues/642
-const privateKey = process.env.GOOGLE_PRIVATE_KEY.replace('/\\n/gm', '\n');
+const privateKey = process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/gm, '\n');
 const languageCode = process.env.DIALOGFLOW_LANGUAGE_CODE;
-
+console.log(languageCode);
+// console.log(privateKey);
 const credentials = {
     client_email: clientEmail,
     private_key: privateKey
@@ -23,17 +28,19 @@ it also enhances the safety of the configuration in the server since all configu
  */
 const sessionClient = new dialogFlow.SessionsClient({projectID, credentials});
 const sessionPath = sessionClient.sessionPath(projectID, sessionID);//create the sessions path
+// console.log(config.googleProjectID + " || " + config.dialogFlowSessionID + config.googlePrivateKey + config.googleClientEmail + config.dialogFlowSessionLanguageCode);
 
 module.exports = {
+
     textQuery: async function(text, parameters = {}){//parameters is an empty object by default
-        try{
+        try{// console.log(config.googleProjectID + " || " + config.dialogFlowSessionID + config.googlePrivateKey + config.googleClientEmail + config.dialogFlowSessionLanguageCode);
             let self = module.exports;//accessing another module exports method
             const request = {
                 session: sessionPath,
                 queryInput: {
                     text: {
                         text: text,// The query to send to the dialogflow agent
-                        languageCode: languageCode,// The language used by the client
+                        languageCode: languageCode,// The language used by the client (en-IE)
                     },
                 },
                 //this sends parameters along with a text query
@@ -62,7 +69,7 @@ module.exports = {
                 queryInput: {
                     event: {
                         name: event,// The query to send to the dialogflow agent
-                        parameters: structJson.jsonToStructProto(parameters),//here, a JSON object (parameters) is passed to the method and converted to struct
+                        parameters: structJson.jsonToStructProto(parameters),//here, a JSON object (paramenters) is passed to the method and converted to struct
                         languageCode: languageCode,// The language used by the client (en-IE)
                     },
                 },
