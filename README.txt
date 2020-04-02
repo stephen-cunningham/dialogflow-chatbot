@@ -21,3 +21,10 @@
 ../index.js
 
 ../package.json
+
+../clientapp
+    user to create: https://github.com/facebook/create-react-app
+    this is the react app
+    /src
+        /components
+        this is where all React components are. These are independent, reusable bits of code: https://www.w3schools.com/react/react_components.aspe
