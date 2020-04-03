@@ -6,10 +6,10 @@ const Message = (properties) => {
                 <div className='d-flex justify-content-start mb-4'>
                     {/*the following ensures that the div will only be used if the bot (tyrone) is the one sending the message*/}
                     {properties.who === 'tyrone' &&
-                    <div className='col-sm-3 img-fluid'>
-                        {/*<img src='/clientapp/public/egg.jpg' className='rounded-circle'/>*/}
-                        <h1>{properties.who}</h1>
-                    </div>
+                        <div className='col-sm-3 img-fluid'>
+                            <img src='/egg.jpg' alt ='Egg' className='rounded-circle' height='25' width ='25'/>
+                            {properties.who}
+                        </div>
                     }
 
                     <div className='col-sm-9'>
@@ -17,9 +17,10 @@ const Message = (properties) => {
                     </div>
 
                     {properties.who === 'user' &&
-                    <div className='col-sm-3 img-fluid'>
-                        <img src='/clientapp/public/eggUser.jpg' className='rounded-circle'/>{properties.who}
-                    </div>
+                        <div className='col-sm-3 img-fluid'>
+                            <img src='/eggUser.jpg' alt='Egg User' className='rounded-circle' height='25' width ='25'/>
+                            {properties.who}
+                        </div>
                     }
                 </div>
             </div>

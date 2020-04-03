@@ -24,11 +24,12 @@ passing in the credentials in this fashion ensures that we don't have to set the
 it also enhances the safety of the configuration in the server since all configuration is in environment variables, rather than the files
  */
 const sessionClient = new dialogFlow.SessionsClient({projectID, credentials});
-const sessionPath = sessionClient.sessionPath(projectID, sessionID);//create the sessions path
 
 module.exports = {
-    textQuery: async function(text, parameters = {}){//parameters is an empty object by default
+    textQuery: async function(text, parameters = {}, uniqueId){//parameters is an empty object by default
         try{
+            //sessionID comes from the config file and uniqueId comes from the client
+            let sessionPath = sessionClient.sessionPath(projectID, sessionID + uniqueId);//create the sessions path
             let self = module.exports;//accessing another module exports method
             const request = {
                 session: sessionPath,
@@ -56,8 +57,9 @@ module.exports = {
         };
     },
 
-    eventQuery: async function(event, parameters){//parameters is an empty object by default
+    eventQuery: async function(event, parameters, uniqueId){//parameters is an empty object by default
         try {
+            let sessionPath = sessionClient.sessionPath(projectID, sessionID + uniqueId);//create the sessions path
             let self = module.exports;//accessing another module exports method
             const request = {
                 session: sessionPath,

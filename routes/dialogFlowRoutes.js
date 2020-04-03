@@ -9,12 +9,12 @@ module.exports = app => {
 
     //this is the handler for POST requests for text queries
     app.post('/api/df_text_query', async(req, res) => {
-        let responses = await bot.textQuery(req.body.text, req.body.parameters);//MAYBE TAKE OUT .text
+        let responses = await bot.textQuery(req.body.text, req.body.parameters, req.body.uniqueId);
         res.send(responses[0].queryResult);
     });
 
     app.post('/api/df_event_query', async(req, res) => {//this is the handler for POST requests for event queries
-        let responses = await bot.eventQuery(req.body.event, req.body.parameters);//MAYBE TAKE OUT .text
+        let responses = await bot.eventQuery(req.body.event, req.body.parameters, req.body.uniqueId);
         res.send(responses[0].queryResult);
     });
 };
