@@ -7,5 +7,6 @@ module.exports = {
     dialogFlowSessionID: process.env.DIALOGFLOW_SESSION_ID,
     dialogFlowSessionLanguageCode: process.env.DIALOGFLOW_LANGUAGE_CODE,
     googleClientEmail: process.env.GOOGLE_CLIENT_EMAIL,
-    googlePrivateKey: process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/gm, '\n')
+    googlePrivateKey: process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/gm, '\n'),
+    mongoDBUri: process.env.MONGODB_URI
 };

@@ -16,7 +16,7 @@
 
 ../routes
     this deals with all route handling
-    /dialogFlowRoutes.js
+    /dialogflowRoutes.js
 
 ../index.js
 
