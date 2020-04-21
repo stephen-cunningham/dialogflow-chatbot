@@ -1,5 +1,7 @@
 //https://www.npmjs.com/package/dialogflow-fulfillment#Setup_Instructions
 const { WebhookClient } = require('dialogflow-fulfillment');
+const axios = require('axios');
+const config = require('../config/keys');
 
 module.exports = app =>{
     //here, the POST request made by dialogflow is caught
@@ -7,23 +9,49 @@ module.exports = app =>{
         try {
             //Create an instance (https://www.npmjs.com/package/dialogflow-fulfillment#Setup_Instructions)
             const agent = new WebhookClient({request: req, response: res});
-            //this is the intent to handle unknown/unrecognised input from the user
-            function defaultFallback(agent) {
-                agent.add('What was that?');
-                agent.add('Sorry, what was that?');
-                agent.add('I missed what you said. What was that?');
-                agent.add('I didn\'t get that. Can you say it again?');
-                agent.add('Sorry, could you say that again?');
-            }
 
-            function test(agent) {
+            function testHandler(agent) {
                 agent.add('Routes response #1');
                 agent.add('Routes response #2');
             }
-            let intentMap = new Map();
-            intentMap.set('Default Fallback Intent', defaultFallback);
-            intentMap.set('Test', test);
-            await agent.handleRequest(intentMap);
+
+            function findPlaceHandler(agent){
+                const place = agent.parameters.place;
+                const location = agent.parameters.location;
+                return axios.get(`https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=
+                ${place}%20${location}&inputtype=textquery&fields=formatted_address,name,rating,opening_hours,geometry&key=${config.apiKey}`)
+                    .then((result) =>{
+                        console.log(result.data);//REMOVE AFTER TESTING
+                        let botSpeak = "";
+                        if(result.data.status === 'ZERO_RESULTS'){
+                            botSpeak += `Sorry. I can't find anything that matches what you're looking for.`;
+                        }else{
+                            result.data.candidates.map(candObj =>{
+                                if(result.data.candidates.indexOf(candObj) == 0){
+                                    agent.add(`Here are some places:`);
+                                }
+                                botSpeak = "";
+                                botSpeak += candObj.name + `: ` + candObj.formatted_address + ` || The rating of this place is: ` + candObj.rating;
+                                if(candObj.opening_hours !== undefined) {
+                                    if (candObj.opening_hours.open_now) {
+                                        botSpeak += ' || Currently open for business!';
+                                    } else {
+                                        botSpeak += ' || Currently closed';
+                                    }
+                                }else{
+                                    botSpeak += ` || There is no available information on opening hours.`;
+                                }
+                                agent.add(botSpeak);
+                            });
+                        }
+                    });
+            }
+
+            let intents = new Map();
+            intents.set('Test', testHandler);
+            intents.set('Find Place', findPlaceHandler);
+
+            await agent.handleRequest(intents);
         }catch(e){
             console.error(e);
         }
