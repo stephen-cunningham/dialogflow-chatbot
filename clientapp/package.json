@@ -4,7 +4,6 @@
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "axios": "^0.19.2",
     "bootstrap": "^4.4.1",
@@ -38,6 +37,9 @@
     ]
   },
   "devDependencies": {
-    "http-proxy-middleware": "^1.0.3"
+    "@testing-library/react": "^9.5.0",
+    "http-proxy-middleware": "^1.0.3",
+    "jest-dom": "^4.0.0",
+    "react-test-render": "^1.1.2"
   }
 }
