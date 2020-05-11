@@ -9,7 +9,6 @@ const config = require('../config/keys');
 const projectID = config.googleProjectID;
 const sessionID = config.dialogFlowSessionID;
 const clientEmail = config.googleClientEmail;
-//idea for .replace(): https://github.com/auth0/node-jsonwebtoken/issues/642
 const privateKey = config.googlePrivateKey;
 const languageCode = config.dialogFlowSessionLanguageCode;
 
@@ -18,10 +17,10 @@ const credentials = {
     private_key: privateKey
 };
 
-/*
-initialising session client
-passing in the credentials in this fashion ensures that we don't have to set the Google application credentials in your local machine during development
-it also enhances the safety of the configuration in the server since all configuration is in environment variables, rather than the files
+/**
+ * initialising session client
+ * passing in the credentials in this fashion ensures that we don't have to set the Google application credentials in your local machine during development
+ * it also enhances the safety of the configuration in the server since all configuration is in environment variables, rather than the files
  */
 const sessionClient = new dialogFlow.SessionsClient({projectID, credentials});
 
@@ -46,15 +45,17 @@ module.exports = {
                     }
                 }
             };
-            //using asynchronous promises
-            //https://www.youtube.com/watch?v=r_X-PLoz1lE
-            //https://javascript.info/async-await
+            /**
+             * using asynchronous promises:
+             * https://www.youtube.com/watch?v=r_X-PLoz1lE
+             * https://javascript.info/async-await
+             */
             let responses = await sessionClient.detectIntent(request);//await returns a promise
             responses = await self.handleAction(responses);
             return responses;
         }catch (e){
             console.error(e);
-        };
+        }
     },
 
     eventQuery: async function(event, parameters, uniqueId){//parameters is an empty object by default
@@ -72,15 +73,17 @@ module.exports = {
                 },
                 //no need for query parameters since parameters are passed in the event object
             };
-            //using asynchronous promises
-            //https://www.youtube.com/watch?v=r_X-PLoz1lE
-            //https://javascript.info/async-await
+            /**
+             * using asynchronous promises:
+             * https://www.youtube.com/watch?v=r_X-PLoz1lE
+             * https://javascript.info/async-await
+             */
             let responses = await sessionClient.detectIntent(request);//await returns a promise
             responses = await self.handleAction(responses);
             return responses;
         }catch(e){
             console.error(e);
-        };
+        }
     },
 
     handleAction: function(responses){

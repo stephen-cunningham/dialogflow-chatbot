@@ -8,6 +8,7 @@
     "axios": "^0.19.2",
     "bootstrap": "^4.4.1",
     "react": "^16.13.1",
+    "react-addons-test-utils": "^15.6.2",
     "react-bootstrap": "^1.0.0",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.1.2",
@@ -39,7 +40,6 @@
   "devDependencies": {
     "@testing-library/react": "^9.5.0",
     "http-proxy-middleware": "^1.0.3",
-    "jest-dom": "^4.0.0",
     "react-test-render": "^1.1.2"
   }
 }

@@ -4,19 +4,13 @@ const axios = require('axios');
 const config = require('../config/keys');
 
 module.exports = app =>{
-    //here, the POST request made by dialogflow is caught
+    /**
+     * here, the POST request made by dialogflow is caught
+     */
     app.post('/', async(req,res) =>{
         try {
             //Create an instance (https://www.npmjs.com/package/dialogflow-fulfillment#Setup_Instructions)
             const agent = new WebhookClient({request: req, response: res});
-
-            /**
-             * The Test intent handler
-             * @param agent
-             */
-
-
-            //`findplacefromtext/json?input=${a}%20${b}&inputtype=textquery&fields=place_id&key=${config.apiKey}`
 
             /**
              * the Find Place intent handler
@@ -128,6 +122,9 @@ module.exports = app =>{
                     });
             }
 
+            /**
+             * 'Opening Hours' intent handler
+             */
             function openingHoursHandler(agent){
                 const place = agent.parameters.place;//taking the place name from user input
                 const location = agent.parameters.location;//taking the location from user input
@@ -139,6 +136,7 @@ module.exports = app =>{
                     .then((result) => {//this runs after the GET request is returned
                         if(result.data.status != "ZERO_RESULTS") {
                             return axios.get(`https://maps.googleapis.com/maps/api/place/details/json?place_id=${result.data.candidates[0].place_id}&fields=opening_hours,name,formatted_address,formatted_phone_number&key=${config.apiKey}`)
+                                //then use the result to do offer the user information
                                 .then((result) => {
                                     console.log(result.data.result);
                                     if (result.data.result.opening_hours != undefined) {
@@ -148,7 +146,6 @@ module.exports = app =>{
                                         agent.add("Opening hours are not available for " + result.data.result.name + ": " + result.data.result.formatted_address);
                                         agent.add("Here is the phone number if you want to contact them directly: " + result.data.result.formatted_phone_number);
                                     }
-
                                 })
                         }else{
                             agent.add(`There are no results for your ${place}: ${location}`);

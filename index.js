@@ -21,11 +21,11 @@ if(process.env.NODE_ENV === 'production') {
     app.use(express.static('clientapp/build'));//all javascript and css files are read and served from here
     const path = require('path');
     app.get('*', (req, res) => {//this sends any route (*) that hasn't been handled above to index.html
-        /*
-        using resolve(): https://nodejs.org/api/path.html#path_path_resolve_paths
-        resolve checks whether dealing with absolute path
-        in this case, it returns clientapp/build/index.html
-        __dirname: https://alligator.io/nodejs/how-to-use__dirname/
+        /**
+         * using resolve(): https://nodejs.org/api/path.html#path_path_resolve_paths
+         * resolve checks whether dealing with absolute path
+         * in this case, it returns clientapp/build/index.html
+         * __dirname: https://alligator.io/nodejs/how-to-use__dirname/
          */
         res.sendFile(path.resolve(__dirname, 'clientapp', 'build', 'index.html'));
     });
