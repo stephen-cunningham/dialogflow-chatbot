@@ -153,11 +153,44 @@ module.exports = app =>{
                     });
             }
 
+            /**
+             * 'Phone Number' intent handler
+             */
+            function phoneNumber(agent){
+                const place = agent.parameters.place;//taking the place name from user input
+                const location = agent.parameters.location;//taking the location from user input
+                //GET request to the API for the data
+                //first, get place_id
+                console.log(place);
+                console.log(location);
+                return axios.get(`https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=
+                ${place}%20${location}&inputtype=textquery&key=${config.apiKey}`)
+                //then get opening hours
+                    .then((result) => {//this runs after the GET request is returned
+                        if(result.data.status != "ZERO_RESULTS") {
+                            return axios.get(`https://maps.googleapis.com/maps/api/place/details/json?place_id=${result.data.candidates[0].place_id}&fields=opening_hours,name,formatted_address,formatted_phone_number&key=${config.apiKey}`)
+                            //then use the result to do offer the user information
+                                .then((result) => {
+                                    console.log(result.data.result);
+                                    if (result.data.result.opening_hours != undefined) {
+                                        agent.add("Here is the phone number for " + result.data.result.name + ": " + result.data.result.formatted_address);
+                                        agent.add(result.data.result.formatted_phone_number);
+                                    } else {
+                                        agent.add("The phone number is not available for " + result.data.result.name + ": " + result.data.result.formatted_address);
+                                    }
+                                })
+                        }else{
+                            agent.add(`There are no results for your ${place}: ${location}`);
+                        }
+                    });
+            }
+
             let intents = new Map();
             // intents.set('Test', testHandler);
             intents.set('Find Place', findPlaceHandler);
             intents.set('Where Open', whereOpenHandler);
             intents.set('Opening Hours', openingHoursHandler);
+            intents.set('Phone Number', phoneNumber);
 
             await agent.handleRequest(intents);
         }catch(e){
