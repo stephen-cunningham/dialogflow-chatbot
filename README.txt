@@ -6,6 +6,19 @@
         In javascript, a struct is represented by an object. The JSON representation for struct is a JSON object.
         This file allows for JavaScript objects to be converted to structs.
 
+../clientapp
+    /public
+        contains all publicly available files, such as images
+    /src
+        /components
+            contains all React components
+            /bot
+                contains all components relating to the bot
+                /__test__
+                    contains some testing for the bot components
+            /webpages
+                contains all components for the webpages
+
 ../config
     /keys.js
         this ensures that the right keys are used and instructs the application to load either develop.js or production.js as the configuration file

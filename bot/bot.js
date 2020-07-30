@@ -73,11 +73,7 @@ module.exports = {
                 },
                 //no need for query parameters since parameters are passed in the event object
             };
-            /**
-             * using asynchronous promises:
-             * https://www.youtube.com/watch?v=r_X-PLoz1lE
-             * https://javascript.info/async-await
-             */
+            //using asynchronous promises
             let responses = await sessionClient.detectIntent(request);//await returns a promise
             responses = await self.handleAction(responses);
             return responses;

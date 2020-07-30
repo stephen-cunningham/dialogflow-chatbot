@@ -15,9 +15,6 @@ class Bot extends Component {
     constructor(properties){
         super(properties);
         this._pressEnter = this._pressEnter.bind(this);//the binding ensures that the 'this'in this.keyPress works in the callback
-        // this._clickSend = this._clickSend.bind(this);//the binding ensures that the 'this'in this.keyPress works in the callback
-        // this.getLocation = this.getLocation.bind(this);
-        // this.getCoordinates = this.getCoordinates.bind(this);
         this.state = {
             messages: [],//the state of the chatbot is initially an empty array. This array will store messages from the client
             welcome: false//this is initially false because the user hasn't yet received a welcome message from the bot
@@ -28,46 +25,6 @@ class Bot extends Component {
         }
         this.textRef = React.createRef();//this is the reference for the text box
     }
-
-    // getLocation(){
-    //     if (navigator.geolocation) {
-    //         console.log(navigator.geolocation);
-    //         navigator.geolocation.getCurrentPosition(this.getCoordinates, this.handleLocationError);
-    //     } else {
-    //         console.log("Test");
-    //         alert("Geolocation is not supported by this browser.");
-    //     }
-    // }
-    //
-    // getCoordinates(position){
-    //     this.setState({
-    //         latitude: position.coords.latitude,
-    //         longitude: position.coords.longitude
-    //
-    //     });
-    //     console.log("Lat: " + position.coords.latitude);
-    //     console.log("Long: " + position.coords.longitude);
-    //     console.log("State: " + this.state.latitude);
-    // }
-
-    // handleLocationError(error){
-    //     switch(error.code) {
-    //         case error.PERMISSION_DENIED:
-    //             alert("User denied the request for Geolocation.");
-    //             break;
-    //         case error.POSITION_UNAVAILABLE:
-    //             alert("Location information is unavailable.");
-    //             break;
-    //         case error.TIMEOUT:
-    //             alert("The request to get user location timed out.");
-    //             break;
-    //         case error.UNKNOWN:
-    //             alert("An unknown error occurred.");
-    //             break;
-    //         default:
-    //             alert("Unknown error");
-    //     }
-    // }
 
     //this handles text messages
     async df_text_query(text){
@@ -163,23 +120,13 @@ class Bot extends Component {
         }
     }
 
-    // _clickSend(event){
-    //     console.log("E: " + event);
-    //     // this.df_text_query(event);
-    //     // event ="";//this empties the input field
-    // }
-
     render() {
         return(
             <div>
-                {/*<div>*/}
-                {/*    <button onClick={this.getLocation}>Get</button>*/}
-                {/*</div>*/}
                 <div id='bot' style={{height: '100%', width: '100%', overflow: 'auto'}}>
                     {this.rendMessages(this.state.messages)}
                     {/*this ensures that, when the message is posted, and the component loads, endOfMessages becomes element*/}
                     <div ref={(element) => {this.endOfMessages = element;}}></div>
-                    {/*<input type='text' onKeyPress={this._pressEnter} autoFocus/>*/}
                 </div>
                 <div>
                     <InputGroup className="mb-3" style={{paddingTop: 10}} onKeyPress={this._pressEnter} autoFocus>
@@ -189,10 +136,6 @@ class Bot extends Component {
                             aria-describedby="basic-addon2"
                             ref={this.textRef}//this is the referenece for the textbox, which autofocuses on it when the page loads
                         />
-                        {/*<InputGroup.Append>*/}
-                        {/*    /!*pass in lastMessage state variable here (onClick(lastMessage))*!/*/}
-                        {/*    <Button variant="outline-primary" onClick={this._clickSend()}>Send</Button>*/}
-                        {/*</InputGroup.Append>*/}
                     </InputGroup>
                 </div>
             </div>

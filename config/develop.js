@@ -2,7 +2,7 @@
 // all required configuration keys will be stored here
 module.exports = {
     googleProjectID: 'tyrone-hwlbfn',
-    dialogFlowSessionID: 'ct544-chatbot-session',
+    dialogFlowSessionID: 'ct544-chatbot-chatbot-session',
     dialogFlowSessionLanguageCode: 'en-IE',
     /**
      * authentication - values are taken from the JSON file created when you create a service account on the Google Cloud Platform:
