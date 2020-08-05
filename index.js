@@ -2,8 +2,6 @@ const express = require('express');//this gets the express module
 const bodyParser = require('body-parser');//importing body parser helper, which is a body parsing middleware. This helps to read data in requests.
 
 const config = require('./config/keys');
-const mongoose = require('mongoose');//this creates a single connection to the database through a singleton
-mongoose.connect(config.mongoDBUri, {useNewUrlParser: true, useUnifiedTopology: true});
 
 const app = express();//this creates the app
 
